@@ -25,6 +25,7 @@ class App extends Component {
           </ul>
           <Route exact path="/" component={Welcome} />
           <Route path="/secured" component={Secured} />
+          <Route path="/HardwareComponents" component={HardwareComponents} />
           <Route path="/HelloAnon" component={HelloAnon}/>
         </div>
       </BrowserRouter>

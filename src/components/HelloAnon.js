@@ -71,9 +71,9 @@ class HelloAnon extends Component {
         // console.log("Message: ",this.state.message)
 
         axiosInstance.get('http://localhost:8081/anonymous',config)
-        .then((res) => res.json)
-        .then((response) => this.data = response)
-        //.then(response => this.setState({message: response.data}))
+        //.then((res) => res.json)
+        //.then((response) => this.data = response)
+        .then(response => this.setState({message: response.data}))
         if(this.state.message != null) {
             console.log(JSON.parse(this.state.message))
         } else {
@@ -89,26 +89,26 @@ class HelloAnon extends Component {
 
             if(keycloak.authenticated) {
 
-               // return <div>Message from Server = {this.state.message}</div>
+               return <div>Message from Server = {this.state.message}</div>
             
-               return
-                <div>
-                    <h1>How to display JSON data to table in React JS</h1>
-                    <tbody>
-                        <tr>
-                            <th>User Id</th>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                        </tr>
-                        {this.data.map((item, i) => (
-                            <tr key={i}>
-                                <td>{item.id}</td>
-                                <td>{item.name}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </div>
+            //    return
+            //     <div>
+            //         <h1>How to display JSON data to table in React JS</h1>
+            //         <tbody>
+            //             <tr>
+            //                 <th>User Id</th>
+            //                 <th>Id</th>
+            //                 <th>Title</th>
+            //                 <th>Description</th>
+            //             </tr>
+            //             {this.data.map((item, i) => (
+            //                 <tr key={i}>
+            //                     <td>{item.id}</td>
+            //                     <td>{item.name}</td>
+            //                 </tr>
+            //             ))}
+            //         </tbody>
+            //     </div>
 
             } else {
                 return <div>Unable to authenticate!</div>
