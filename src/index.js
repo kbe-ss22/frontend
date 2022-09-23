@@ -8,25 +8,6 @@ import axios from 'axios';
 import keycloak from "./Keycloak";
 
 
-// axios.interceptors.request.use(
-//   config => {
-//       //const token = window.accessToken ? window.accessToken: 'dummy_token';
-//       console.log("Keycloak token: ",keycloak.token)
-      
-//       const token = keycloak.token ? keycloak.token: 'dummy_token';
-//       config.headers['Authorization'] = 'Bearer ' + token;
-//       return config;
-//   },
-//   error => {
-//       Promise.reject(error)
-//   });
-
-// axios.interceptors.response.use((response) => {
-//   return response
-// }, function (error) {
-//   return Promise.reject(error);
-//   } 
-// );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
