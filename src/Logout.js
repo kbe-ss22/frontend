@@ -16,5 +16,5 @@ class Logout extends Component {
     );
   }
 }
-export default withRouter(Logout);
-//export default Logout;
+//export default withRouter(Logout);
+export default Logout;

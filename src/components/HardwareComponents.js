@@ -16,6 +16,7 @@ class HardwareComponents extends Component {
         //     this.setState({ keycloak: keycloak, authenticated: authenticated })
         //   })
 
+        console.log("hardwarecom... fired yay")
         var config = {
             headers: {
                 'Content-Type': 'application/json',
