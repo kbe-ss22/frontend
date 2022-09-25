@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
 import axiosInstance from '../keycloak/interceptor';
 
-class HardwareComponents extends Component {
+class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {clients: [], message: null, keycloak: null, authenticated: false};
@@ -31,7 +31,7 @@ class HardwareComponents extends Component {
           };
         
         // axiosInstance.get('http://localhost:8081/hardwarecomponents', config, {params: {currencyParam: "EUR"}})
-        axiosInstance.get('http://localhost:8081/hardwarecomponents', config)
+        axiosInstance.get('http://localhost:8081/products', config)
         .then(response => this.setState({message: response.data}))
         // .then(response => response.json)
         // .then(data => this.setState({clients: data}));
@@ -65,4 +65,4 @@ class HardwareComponents extends Component {
         );
     }
 }
-export default HardwareComponents;
+export default Products;

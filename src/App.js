@@ -4,65 +4,44 @@ import Welcome from './Welcome';
 import Secured from './Secured';
 import './App.css';
 import HardwareComponents from './components/HardwareComponents';
+import Products from './components/Products';
 import HelloAnon from './components/HelloAnon';
+import keycloak from "./Keycloak";
+import Logout from './Logout';
 
 
 class App extends Component {
 
- 
+  constructor(props) {
+    super(props);
+    this.state = { keycloak: null, authenticated: false };
+  }
+
+  componentDidMount() {
+    console.log("Secured.js: componentDidMount() triggered")
+    if(!keycloak.authenticated) {
+      keycloak.init({onLoad: 'login-required', checkLoginIframe: 'false'})
+    }
+  }
 
   render() {
 
-    
+    console.log("this.state.keycloak: ",this.state.keycloak)
     return (
       <BrowserRouter>
         <div className="container">
           <ul>
-            <li><Link to="/">public component</Link></li>
-            <li><Link to="/secured">secured component</Link></li>
-            <li><Link to="/HardwareComponents">hardwarecomponents</Link></li>
-            <li><Link to="/HelloAnon">helloanon</Link></li>
+            <li><Link to="/HardwareComponents">Hardware Components</Link></li>
+            <li><Link to="/Products">Products</Link></li>
+            <li><Link to="/HelloAnon">test message</Link></li>
+            <li><Logout keycloak={keycloak} /></li>
           </ul>
-          <Route exact path="/" component={Welcome} />
-          <Route path="/secured" component={Secured} />
           <Route path="/HardwareComponents" component={HardwareComponents} />
           <Route path="/HelloAnon" component={HelloAnon}/>
+          <Route path="/Products" component={Products}/>
         </div>
       </BrowserRouter>
     );
   }
 }
 export default App;
-// import React from "react";
-// import { ReactKeycloakProvider } from "@react-keycloak/web";
-// import keycloak from "./Keycloak";
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import Nav from "./components/Nav";
-// import WelcomePage from "./pages/Homepage";
-// import SecuredPage from "./pages/Securedpage";
-// import PrivateRoute from "./helpers/PrivateRoute";
-
-// function App() {
-//  return (
-//    <div>
-//      <ReactKeycloakProvider authClient={keycloak}>
-//        <Nav />
-//        <BrowserRouter>
-//          <Routes>
-//            <Route exact path="/" element={<WelcomePage />} />
-//            <Route
-//              path="/secured"
-//              element={
-//                <PrivateRoute>
-//                  <SecuredPage />
-//                </PrivateRoute>
-//              }
-//            />
-//          </Routes>
-//        </BrowserRouter>
-//      </ReactKeycloakProvider>
-//    </div>
-//  );
-// }
-
-// export default App;

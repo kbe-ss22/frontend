@@ -69,7 +69,7 @@ class HelloAnon extends Component {
         
         // console.log(this.state.errorMessage)
         // console.log("Message: ",this.state.message)
-
+        console.log("keycloak.authenticated: ",keycloak.authenticated)
         axiosInstance.get('http://localhost:8081/anonymous',config)
         //.then((res) => res.json)
         //.then((response) => this.data = response)
@@ -85,7 +85,7 @@ class HelloAnon extends Component {
     }
 
     render() {
-        if(keycloak) {
+        // if(keycloak) {
 
             if(keycloak.authenticated) {
 
@@ -113,12 +113,12 @@ class HelloAnon extends Component {
             } else {
                 return <div>Unable to authenticate!</div>
             }
-        }
-        return (
-            <div>
-                keycloak loading...
-            </div>
-        );
+        // }
+        // return (
+        //     <div>
+        //         keycloak loading...
+        //     </div>
+        // );
     }
 }
 export default HelloAnon;
