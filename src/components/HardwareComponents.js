@@ -3,11 +3,13 @@ import Keycloak from 'keycloak-js';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
 import axiosInstance from '../keycloak/interceptor';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import TableTemplate from './TableTemplate';
 
 class HardwareComponents extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: null, keycloak: null, authenticated: false};
+        this.state = {clients: [], message: [], keycloak: null, authenticated: false};
         //this.remove = this.remove.bind(this);
     }
 
@@ -42,7 +44,8 @@ class HardwareComponents extends Component {
     render() {
         
         const {clients, isLoading} = this.state;
-        console.log(this.state.message)
+        const hardware = this.state.message;
+        console.log(hardware)
     
         if(this.state.keycloak) {
 
@@ -62,7 +65,7 @@ class HardwareComponents extends Component {
             }
         }
         return (
-            <div>check console</div>
+            <TableTemplate props={hardware}/>
         );
     }
 }
