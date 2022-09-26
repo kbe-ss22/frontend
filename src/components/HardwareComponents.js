@@ -3,19 +3,17 @@ import Keycloak from 'keycloak-js';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
 import axiosInstance from '../keycloak/interceptor';
+import Cookies from 'js-cookie';
 
 class HardwareComponents extends Component {
     constructor(props) {
         super(props);
         this.state = {clients: [], message: null, keycloak: null, authenticated: false};
-        //this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
-        // keycloak.init({onLoad: 'login-required', checkLoginIframe: 'false'}).then(authenticated => {
-        //     this.setState({ keycloak: keycloak, authenticated: authenticated })
-        //   })
-
+        let cookieCurrency = Cookies.get('currency') ?? 'EUR';
+        
         console.log("hardwarecom... fired yay")
         var config = {
             headers: {
@@ -25,7 +23,7 @@ class HardwareComponents extends Component {
                 'withCredentials': true
             },
             params: {
-                currencyParam: "Eur"
+                currencyParam: cookieCurrency
             }
             //,
             //responseType: 'blob'
