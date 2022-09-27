@@ -18,8 +18,6 @@ class HardwareComponents extends Component {
     }
 
     componentDidMount() {
-        var mes = sessionStorage.getItem("fu");
-        console.log(mes);
         if(this.state.currency == null) {
             this.setState( {currency: Cookies.get('currency') ?? 'EUR'} )
         }
@@ -64,6 +62,7 @@ class HardwareComponents extends Component {
         //let name = 
         console.log(this.state.name)
         //  sendData(name,arrOfNum)
+        sessionStorage.setItem("hardwareIDs","[]")
     }
 
     sendData(productName, harddwareIDs) {
@@ -113,7 +112,6 @@ class HardwareComponents extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                         <pre> Selected Currency: {selectedCurrency}</pre>
-                        {/* <Form.Control id="name" value={node => (this.state.name = node)} type="email" placeholder="Enter email" />  */}
                         <Button variant="outline-primary" onClick={ () => this.submit() }>Submit</Button>{' '}
                         <TableTemplateHardware props={hardware}/>
                     </div>
