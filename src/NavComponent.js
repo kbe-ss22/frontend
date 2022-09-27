@@ -16,8 +16,6 @@ function BasicExample() {
   const [selectedItem, setSelectedItem] = useState("");
 
   function logout() {
-    //this.props.history.push('/');
-    //this.props.keycloak.logout();
     keycloak.logout();
   }
 
@@ -32,7 +30,7 @@ return (
  
   <Navbar bg="light" expand="lg">
     <Container>
-      <Navbar.Brand link="#home">KBESS22</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">KBESS22</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
