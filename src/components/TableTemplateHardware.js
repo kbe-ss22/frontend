@@ -35,17 +35,34 @@ class TableTemplateHardware extends Component {
 }
 
 const bla = []
+const map1 = new Map();
+const types = []
 
-function addItem(e) {
+function addItem(element) {
     // check type
+    //console.log("element: ",element)
+    let e = element.id
 
-
-    // check if item needs to be removed
-    if(bla.includes(e)) {
-        bla.pop(e)
+    if(types.includes(element.type)) {
+        if(bla.includes(e)) {
+            bla.pop(e)
+            types.pop(element.type)
+        } else {
+            alert("Type already choosen")
+        }
     } else {
+        types.push(element.type)
         bla.push(e)
     }
+    console.log("elemente: ",bla.join())
+    console.log("types: ",types)
+    
+    //check if item needs to be removed
+    // if(bla.includes(e)) {
+    //     bla.pop(e)
+    // } else {
+    //     bla.push(e)
+    // }
     sessionStorage.setItem("hardwareIDs",bla.join())
 }
 
