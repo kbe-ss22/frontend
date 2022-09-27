@@ -6,16 +6,26 @@ import axiosInstance from '../keycloak/interceptor';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TableTemplateHardware from './TableTemplateHardware';
 import Cookies from 'js-cookie';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 class HardwareComponents extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: [], authenticated: false};
+        this.state = {clients: [], message: [], currency: null, authenticated: false};
+        this.items = ['EUR', 'MXN', 'USD', 'CAD', 'YEN', 'PND'];
     }
 
     componentDidMount() {
+        if(this.state.currency == null) {
+            this.setState( {currency: Cookies.get('currency') ?? 'EUR'} )
+        }
+        this.fetchData()
+    }
+
+    fetchData() {
         let cookieCurrency = Cookies.get('currency') ?? 'EUR';
-        
+        console.log("cookieCurrency = ",cookieCurrency)
+
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -27,15 +37,25 @@ class HardwareComponents extends Component {
                 currencyParam: cookieCurrency
             }
           };
-        
         axiosInstance.get('http://localhost:8081/hardwarecomponents', config)
         .then(response => this.setState({message: response.data}))
+        console.log("fetch of hardwarecomponents returned: ",this.state.message)
+    }
+
+    
+    setSelectedItemWrapper(item) {
+        this.setState({currency: item})
+        console.log("typeof(item): ",typeof(item))
+        Cookies.set('currency', item)
+        this.fetchData()
+        this.render()
     }
 
     render() {
         const {clients, isLoading} = this.state;
         const hardware = this.state.message;
         console.log(hardware)
+        let selectedCurrency = this.state.currency;
 
         if(keycloak.authenticated) {
 
@@ -43,7 +63,22 @@ class HardwareComponents extends Component {
                 return <p>Loading...</p>;
             } else {
                 return (
-                    <TableTemplateHardware props={hardware}/>
+                    <div>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Currency
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {this.items.map((item) => (
+                                    <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
+                                        {item}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <pre> Selected Currency: {selectedCurrency}</pre>
+                        <TableTemplateHardware props={hardware}/>
+                    </div>
                 );
             }
         } else {
