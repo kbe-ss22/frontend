@@ -14,7 +14,6 @@ class HardwareComponents extends Component {
     componentDidMount() {
         let cookieCurrency = Cookies.get('currency') ?? 'EUR';
         
-        console.log("hardwarecom... fired yay")
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -32,6 +31,7 @@ class HardwareComponents extends Component {
     }
 
     render() {
+        console.log("this.state.message: ",this.state.message)
         if(keycloak.authenticated) {
             return <div>check console</div>
             // return <div>Message from Server = {this.state.message}</div>
