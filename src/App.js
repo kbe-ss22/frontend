@@ -4,6 +4,7 @@ import './App.css';
 import HardwareComponents from './components/HardwareComponents';
 import Products from './components/Products';
 import HelloAnon from './components/HelloAnon';
+import Home from './components/Home';
 import keycloak from "./Keycloak";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -20,26 +21,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("Secured.js: componentDidMount() triggered")
     if(!keycloak.authenticated) {
       keycloak.init({onLoad: 'login-required', checkLoginIframe: 'false'})
     } else {
-      console.log("already authenticated :D yay")
-    }
+      console.log("already authenticated")
+    } 
   }
 
   render() {
-    console.log("this.state.keycloak: ",this.state.keycloak)
     return (
       <BrowserRouter>
         <NavComponent />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/HardwareComponents" element={<HardwareComponents />} />
           <Route path="/Products" element={<Products />} />
           <Route path="/HelloAnon" element={<HelloAnon />} />
         </Routes>
       </BrowserRouter>
-      
     )
   }
 }

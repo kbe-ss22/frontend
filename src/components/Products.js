@@ -2,20 +2,28 @@ import React, { Component } from 'react';
 import Keycloak from 'keycloak-js';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
-import axiosInstance from '../keycloak/interceptor';
+import axiosInstance from '../keycloak/interceptor'
 import TableTemplateProduct from './TableTemplateProduct';
+import Cookies from 'js-cookie';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: [], keycloak: null, authenticated: false};
-        //this.remove = this.remove.bind(this);
+        this.state = {clients: [], message: [], currency: null, authenticated: false};
+        this.items = ['EUR', 'MXN', 'USD', 'CAD', 'YEN', 'PND'];
     }
 
     componentDidMount() {
-        // keycloak.init({onLoad: 'login-required', checkLoginIframe: 'false'}).then(authenticated => {
-        //     this.setState({ keycloak: keycloak, authenticated: authenticated })
-        //   })
+        if(this.state.currency == null) {
+            this.setState( {currency: Cookies.get('currency') ?? 'EUR'} )
+        }
+        this.fetchData()
+    }
+
+    fetchData() {
+        let cookieCurrency = Cookies.get('currency') ?? 'EUR';
+        console.log("cookieCurrency = ",cookieCurrency)
 
         var config = {
             headers: {
@@ -25,47 +33,49 @@ class Products extends Component {
                 'withCredentials': true
             },
             params: {
-                currencyParam: "Eur"
+                currencyParam: cookieCurrency
             }
-            //,
-            //responseType: 'blob'
           };
-        
-        // axiosInstance.get('http://localhost:8081/hardwarecomponents', config, {params: {currencyParam: "EUR"}})
         axiosInstance.get('http://localhost:8081/products', config)
         .then(response => this.setState({message: response.data}))
-        // .then(response => response.json)
-        // .then(data => this.setState({clients: data}));
-        console.log("this.state.message (componentDidMount): ",this.state.message)
+        console.log("fetch of products returned: ",this.state.message)
+    }
+
+    setSelectedItemWrapper(item) {
+        this.setState({currency: item})
+        console.log("typeof(item): ",typeof(item))
+        Cookies.set('currency', item)
+        this.fetchData()
+        this.render()
     }
 
     render() {
-        
         const {clients, isLoading} = this.state;
         console.log("Products product: ", this.state.message)
         const product = this.state.message;
-
-        if(this.state.keycloak) {
-
-            if(this.state.authenticated) {
-
-                if (isLoading) {
-                    return <p>Loading...</p>;
-                }
-                console.log("this.state.message (render): ",this.state.message)
-                let json = JSON.parse(this.state.message)
-                console.log("json: ",json)
-                
-                    return <div>Message from Server = {this.state.message}</div>
-
-            } else {
-                return <div>Unable to authenticate!</div>
-            }
+        console.log("this.state.message: ",this.state.message)
+        let selectedCurrency = this.state.currency;
+        if(keycloak.authenticated) {
+            return (
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Currency
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {this.items.map((item) => (
+                            <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
+                                {item}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown.Menu>
+                 </Dropdown>
+                 <pre> Selected Currency: {selectedCurrency}</pre>
+            
+                <TableTemplateProduct props={product}/>
+            );
+        } else {
+            return <div>Unable to authenticate!</div>
         }
-        return (
-            <TableTemplateProduct props={product}/>
-            //<div>{product.productlist?.map(i=>i.id )} </div>
-        );
     }
 }
 export default Products;
