@@ -3,12 +3,14 @@ import Keycloak from 'keycloak-js';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
 import axiosInstance from '../keycloak/interceptor';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import TableTemplateHardware from './TableTemplateHardware';
 import Cookies from 'js-cookie';
 
 class HardwareComponents extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: null, authenticated: false};
+        this.state = {clients: [], message: [], authenticated: false};
     }
 
     componentDidMount() {
@@ -31,11 +33,19 @@ class HardwareComponents extends Component {
     }
 
     render() {
-        console.log("this.state.message: ",this.state.message)
+        const {clients, isLoading} = this.state;
+        const hardware = this.state.message;
+        console.log(hardware)
+
         if(keycloak.authenticated) {
-            return <div>check console</div>
-            // return <div>Message from Server = {this.state.message}</div>
-        
+
+            if (isLoading) {
+                return <p>Loading...</p>;
+            } else {
+                return (
+                    <TableTemplateHardware props={hardware}/>
+                );
+            }
         } else {
             return <div>Unable to authenticate!</div>
         }

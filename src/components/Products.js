@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import Keycloak from 'keycloak-js';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
-import axiosInstance from '../keycloak/interceptor';
+import axiosInstance from '../keycloak/interceptor'
+import TableTemplateProduct from './TableTemplateProduct';
 import Cookies from 'js-cookie';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], currency: null, message: null, authenticated: false};
+        this.state = {clients: [], message: [], currency: null, authenticated: false};
         this.items = ['EUR', 'MXN', 'USD', 'CAD', 'YEN', 'PND'];
     }
 
@@ -49,37 +50,29 @@ class Products extends Component {
     }
 
     render() {
+        const {clients, isLoading} = this.state;
+        console.log("Products product: ", this.state.message)
+        const product = this.state.message;
         console.log("this.state.message: ",this.state.message)
         let selectedCurrency = this.state.currency;
         if(keycloak.authenticated) {
-
-            return <div>
-                check console
-
-
+            return (
                 <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Currency
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                {this.items.map((item) => (
-                <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
-                  {item}
-                </Dropdown.Item>
-                ))}
-              {/* <Dropdown.Item href="#/action-1">EUR</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">MXN</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">USD</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">CAD</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">YEN</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">PND</Dropdown.Item> */}
-            </Dropdown.Menu>
-          </Dropdown>
-          <pre> Selected Currency: {selectedCurrency}</pre>
-
-
-            </div>        
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Currency
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {this.items.map((item) => (
+                            <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
+                                {item}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown.Menu>
+                 </Dropdown>
+                 <pre> Selected Currency: {selectedCurrency}</pre>
+            
+                <TableTemplateProduct props={product}/>
+            );
         } else {
             return <div>Unable to authenticate!</div>
         }
