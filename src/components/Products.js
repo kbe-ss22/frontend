@@ -57,21 +57,23 @@ class Products extends Component {
         let selectedCurrency = this.state.currency;
         if(keycloak.authenticated) {
             return (
-                <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Currency
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {this.items.map((item) => (
-                            <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
-                                {item}
-                            </Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>
-                 </Dropdown>
-                 <pre> Selected Currency: {selectedCurrency}</pre>
-            
-                <TableTemplateProduct props={product}/>
+                <div>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Currency
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {this.items.map((item) => (
+                                <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
+                                    {item}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <pre> Selected Currency: {selectedCurrency}</pre>
+                
+                    <TableTemplateProduct props={product}/>
+                </div>
             );
         } else {
             return <div>Unable to authenticate!</div>
