@@ -1,26 +1,25 @@
 import React, { Component,useState } from 'react';
-import { Collapse, Container,Table } from "react-bootstrap";
+import { Collapse, Container,Table, Form } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class TableTamplate extends Component {
+class TableTemplateHardware extends Component {
     constructor(props) {
         super(props);
     }
     state = {  }
-
-    
 
     render() { 
         console.log("TableTemplate: ", this.props);
 
         return ( 
             <Container>        
-                <Table striped bordered hover>
+                <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Price</th>
+                            <th>Add to Product</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +28,7 @@ class TableTamplate extends Component {
                         )}
                     </tbody>
                 </Table>
+                
             </Container>
          );
     }
@@ -44,14 +44,15 @@ function TableRow(prop)
             <tr onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} >
                 <td>{prop.prop.id}</td>
                 <td>{prop.prop.name}</td>
-                <td>{prop.prop.price}</td>
+                <td>{(prop.prop.price).toFixed(2)}</td>
+                <td onClick={() => setOpen(open)}><Form.Check key={prop.prop.id} aria-label="option 1" /></td>
             </tr>
             <Collapse in={open}>
                     <tr>
-                        <td colSpan={3}>{prop.prop.description}</td>
+                        <td colSpan={4}>{prop.prop.description}</td>
                     </tr>
             </Collapse>
         </>
    );
 }
-export default TableTamplate;
+export default TableTemplateHardware;

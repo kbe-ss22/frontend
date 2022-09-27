@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
 import axiosInstance from '../keycloak/interceptor';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TableTemplate from './TableTemplate';
+import TableTemplateHardware from './TableTemplateHardware';
 
 class HardwareComponents extends Component {
     constructor(props) {
@@ -65,7 +65,7 @@ class HardwareComponents extends Component {
             }
         }
         return (
-            <TableTemplate props={hardware}/>
+            <TableTemplateHardware props={hardware}/>
         );
     }
 }

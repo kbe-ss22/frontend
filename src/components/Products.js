@@ -3,11 +3,12 @@ import Keycloak from 'keycloak-js';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import keycloak from "../Keycloak";
 import axiosInstance from '../keycloak/interceptor';
+import TableTemplateProduct from './TableTemplateProduct';
 
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: null, keycloak: null, authenticated: false};
+        this.state = {clients: [], message: [], keycloak: null, authenticated: false};
         //this.remove = this.remove.bind(this);
     }
 
@@ -41,8 +42,9 @@ class Products extends Component {
     render() {
         
         const {clients, isLoading} = this.state;
-        console.log(this.state.message)
-    
+        console.log("Products product: ", this.state.message)
+        const product = this.state.message;
+
         if(this.state.keycloak) {
 
             if(this.state.authenticated) {
@@ -61,7 +63,8 @@ class Products extends Component {
             }
         }
         return (
-            <div>check console</div>
+            <TableTemplateProduct props={product}/>
+            //<div>{product.productlist?.map(i=>i.id )} </div>
         );
     }
 }
