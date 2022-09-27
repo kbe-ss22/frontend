@@ -19,13 +19,6 @@ function BasicExample() {
     keycloak.logout();
   }
 
-  function setSelectedItemWrapper(item) {
-    setSelectedItem(item)
-    Cookies.set('currency', item)
-    console.log("NavComponent: Cookies.get('currency'): ",Cookies.get('currency'))
-    // component reload somehow
-  }
-
 return (
  
   <Navbar bg="light" expand="lg">
@@ -38,32 +31,7 @@ return (
           <Nav.Link as={Link} to="/Products">Products</Nav.Link>
           <Nav.Link as={Link} to="/HelloAnon">Anon</Nav.Link>
           
-
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Currency
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                {items.map((item) => (
-                <Dropdown.Item onClick={() => setSelectedItemWrapper(item)}>
-                  {item}
-                </Dropdown.Item>
-                ))}
-              {/* <Dropdown.Item href="#/action-1">EUR</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">MXN</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">USD</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">CAD</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">YEN</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">PND</Dropdown.Item> */}
-            </Dropdown.Menu>
-          </Dropdown>
-          <pre>selectedItem: {selectedItem}</pre>
-
-
-
           <Button variant="outline-primary" onClick={ () => logout() }>Logout</Button>{' '}
-          
           
         </Nav>
       </Navbar.Collapse>
