@@ -9,7 +9,7 @@ class TableTemplateHardware extends Component {
     state = {  }
 
     render() { 
-        console.log("TableTemplate: ", this.props);
+        //console.log("TableTemplate: ", this.props);
 
         return ( 
             <Container>        
@@ -34,18 +34,33 @@ class TableTemplateHardware extends Component {
     }
 }
 
+const bla = []
+
+function addItem(e) {
+    // check type
+
+
+    // check if item needs to be removed
+    if(bla.includes(e)) {
+        bla.pop(e)
+    } else {
+        bla.push(e)
+    }
+    sessionStorage.setItem("hardwareIDs",bla.join())
+}
+
 function TableRow(prop)
 {
     const [open, setOpen] = useState(false);
-    console.log("TableRow: ", prop.prop)
-
+    //console.log("TableRow: ", prop.prop)
+   
     return(
         <>
             <tr onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} >
                 <td>{prop.prop.id}</td>
                 <td>{prop.prop.name}</td>
                 <td>{(prop.prop.price).toFixed(2)}</td>
-                <td onClick={() => setOpen(open)}><Form.Check key={prop.prop.id} aria-label="option 1" /></td>
+                <td onClick={() => setOpen(open)}><Form.Check key={prop.prop.id} onChange={e => addItem(prop.prop)} aria-label="option 1" /></td>
             </tr>
             <Collapse in={open}>
                     <tr>
