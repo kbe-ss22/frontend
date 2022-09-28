@@ -137,6 +137,8 @@ class HardwareComponents extends Component {
                         <Form.Control type="name" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)} placeholder="set name of product here" />
                         <Button variant="outline-primary" onClick={ () => this.submit() }>Submit</Button>{' '}
                         <TableTemplateHardware props={hardware}/>
+                        <Button variant="outline-primary" onClick={ () => this.submit() }>Submit</Button>{' '}
+
                     </div>
                 );
             }
