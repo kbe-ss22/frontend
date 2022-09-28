@@ -18,6 +18,7 @@ class TableTemplateProduct extends Component {
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>
