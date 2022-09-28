@@ -61,6 +61,7 @@ function addItem(element) {
             types.pop(element.type)
         } else {
             alert("Type already choosen")
+            document.getElementById(e).checked = false;
         }
     } else {
         types.push(element.type)
@@ -90,7 +91,7 @@ function TableRow(prop)
                 <td>{prop.prop.name}</td>
                 <td>{prop.prop.type}</td>
                 <td>{(prop.prop.price).toFixed(2)}</td>
-                <td onClick={() => setOpen(open)}><Form.Check key={prop.prop.id} onChange={e => addItem(prop.prop)} aria-label="option 1" /></td>
+                <td onClick={() => setOpen(open)}><Form.Check id={prop.prop.id} key={prop.prop.id} onChange={e => addItem(prop.prop)} aria-label="option 1" /></td>
             </tr>
             <Collapse in={open}>
                     <tr>
