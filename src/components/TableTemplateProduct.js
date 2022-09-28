@@ -41,7 +41,7 @@ function TableRowP(prop)
             <tr onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} >
                 <td>{prop.prop.id}</td>
                 <td onClick={() => setOpen(open)}><p>{prop.prop.name}</p></td>
-            {/* <td>{(prop.prop.price).toFixed(2)}</td> */}
+                <td>{(prop.prop.price).toFixed(2)}</td>
             </tr>
             <Collapse in={open}>
                     <tr>
