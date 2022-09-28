@@ -22,6 +22,7 @@ class HardwareComponents extends Component {
             this.setState( {currency: Cookies.get('currency') ?? 'EUR'} )
         }
         this.fetchData()
+        sessionStorage.setItem("emptyLists","true");
     }
 
     fetchData() {
