@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 class HardwareComponents extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: [], currency: null, authenticated: false, name: ''};
+        this.state = {clients: [], message: [], currency: null, authenticated: false, name: '',inputValue: ''};
         this.items = ['EUR', 'MXN', 'USD', 'CAD', 'YEN', 'PND'];
     }
 
@@ -44,7 +44,13 @@ class HardwareComponents extends Component {
         //console.log("fetch of hardwarecomponents returned: ",this.state.message)
     }
 
-
+    updateInputValue(evt) {
+        const val = evt.target.value;
+        // ...       
+        this.setState({
+          inputValue: val
+        });
+      }
     
     setSelectedItemWrapper(item) {
         this.setState({currency: item})
@@ -58,10 +64,13 @@ class HardwareComponents extends Component {
         let hardwareidsStrings = sessionStorage.getItem("hardwareIDs")
         let arrOfStr = hardwareidsStrings.split(",")
         const arrOfNum = arrOfStr.map(str => Number(str));
-        console.log(arrOfNum)
-        //let name = 
-        console.log(this.state.name)
-        this.sendData("superpc",hardwareidsStrings)
+        let nameProd
+        if(this.state.inputValue == '') {
+            nameProd = "Unnamed"
+        } else {
+            nameProd = this.state.inputValue;
+        }
+        this.sendData(nameProd,arrOfNum)
         sessionStorage.setItem("hardwareIDs","[]")
     }
 
@@ -89,6 +98,11 @@ class HardwareComponents extends Component {
             console.log(error.response)
         });
     } 
+
+    handleNameInputChange(e) {
+        console.log(e);
+    }
+
 
     render() {
         const {clients, isLoading} = this.state;
@@ -119,6 +133,7 @@ class HardwareComponents extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                         <pre> Selected Currency: {selectedCurrency}</pre>
+                        <Form.Control type="name" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)} placeholder="set name of product here" />
                         <Button variant="outline-primary" onClick={ () => this.submit() }>Submit</Button>{' '}
                         <TableTemplateHardware props={hardware}/>
                     </div>
