@@ -18,6 +18,7 @@ class TableTemplateHardware extends Component {
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>Price</th>
                             <th>Add to Product</th>
                         </tr>
@@ -35,10 +36,16 @@ class TableTemplateHardware extends Component {
 }
 
 const bla = []
-const map1 = new Map();
 const types = []
 
 function addItem(element) {
+    let resetLists = sessionStorage.getItem("emptyLists")
+
+    if(resetLists == 'true') {
+        sessionStorage.setItem("emptyLists",'false');
+        bla = [];
+        types = [];
+    }
     // check type
     //console.log("element: ",element)
     let e = element.id
@@ -76,6 +83,7 @@ function TableRow(prop)
             <tr onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} >
                 <td>{prop.prop.id}</td>
                 <td>{prop.prop.name}</td>
+                <td>{prop.prop.type}</td>
                 <td>{(prop.prop.price).toFixed(2)}</td>
                 <td onClick={() => setOpen(open)}><Form.Check key={prop.prop.id} onChange={e => addItem(prop.prop)} aria-label="option 1" /></td>
             </tr>
