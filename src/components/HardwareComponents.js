@@ -61,7 +61,7 @@ class HardwareComponents extends Component {
         console.log(arrOfNum)
         //let name = 
         console.log(this.state.name)
-        //  sendData(name,arrOfNum)
+        this.sendData("superpc",hardwareidsStrings)
         sessionStorage.setItem("hardwareIDs","[]")
     }
 
@@ -74,13 +74,20 @@ class HardwareComponents extends Component {
                 'Authorization': 'Bearer '+keycloak.token,
                 'Access-Control-Allow-Origin': '*',
                 'withCredentials': true
-            },
-            params: {
-                name: productName,
-                hardwareIDs: harddwareIDs
             }
           };
-        axiosInstance.post('http://localhost:8081/products/create', config)
+
+        var payload = {
+            name: productName,
+            hardwareIDs: harddwareIDs
+        }
+        axiosInstance.post('http://localhost:8081/products/create', payload, config)
+        .then(response => { 
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error.response)
+        });
     } 
 
     render() {
