@@ -51,7 +51,7 @@ class HardwareComponents extends Component {
         // console.log("typeof(item): ",typeof(item))
         // Cookies.set('currency', item)
         this.fetchData()
-        this.render()
+        this.setState({ state: this.state });
     }
 
     submit() {
