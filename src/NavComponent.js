@@ -29,7 +29,7 @@ return (
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/HardwareComponents">Hardware Components</Nav.Link>
           <Nav.Link as={Link} to="/Products">Products</Nav.Link>
-          <Nav.Link as={Link} to="/HelloAnon">Anon</Nav.Link>
+          {/* <Nav.Link as={Link} to="/HelloAnon">Anon</Nav.Link> */}
           
           <Button variant="outline-primary" onClick={ () => logout() }>Logout</Button>{' '}
           
