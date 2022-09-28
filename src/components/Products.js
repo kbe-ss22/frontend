@@ -23,7 +23,6 @@ class Products extends Component {
 
     fetchData() {
         let cookieCurrency = Cookies.get('currency') ?? 'EUR';
-        console.log("cookieCurrency = ",cookieCurrency)
 
         var config = {
             headers: {
@@ -38,12 +37,10 @@ class Products extends Component {
           };
         axiosInstance.get('http://localhost:8081/products', config)
         .then(response => this.setState({message: response.data}))
-        console.log("fetch of products returned: ",this.state.message)
     }
 
     setSelectedItemWrapper(item) {
         this.setState({currency: item})
-        console.log("typeof(item): ",typeof(item))
         Cookies.set('currency', item)
         this.fetchData()
         this.setState({ state: this.state });
@@ -51,9 +48,7 @@ class Products extends Component {
 
     render() {
         const {clients, isLoading} = this.state;
-        console.log("Products product: ", this.state.message)
         const product = this.state.message;
-        console.log("this.state.message: ",this.state.message)
         let selectedCurrency = this.state.currency;
         if(keycloak.authenticated) {
             return (
