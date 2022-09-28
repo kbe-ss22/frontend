@@ -9,8 +9,6 @@ class TableTemplateProduct extends Component {
     state = {  }
 
     render() { 
-        console.log("TableTemplateProduct: ", this.props);
-
         return ( 
             <Container>        
                 <Table striped bordered hover variant="dark">
