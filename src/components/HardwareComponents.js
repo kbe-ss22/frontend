@@ -49,7 +49,7 @@ class HardwareComponents extends Component {
     setSelectedItemWrapper(item) {
         this.setState({currency: item})
         // console.log("typeof(item): ",typeof(item))
-        // Cookies.set('currency', item)
+        Cookies.set('currency', item)
         this.fetchData()
         this.setState({ state: this.state });
     }
