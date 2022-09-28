@@ -35,17 +35,22 @@ class TableTemplateHardware extends Component {
     }
 }
 
-const bla = []
-const types = []
+let bla = []
+let types = []
 
 function addItem(element) {
     let resetLists = sessionStorage.getItem("emptyLists")
 
-    if(resetLists == 'true') {
-        sessionStorage.setItem("emptyLists",'false');
+    if(resetLists == "true") {
+        console.log("resetList == true")
+        sessionStorage.setItem("emptyLists","false");
         bla = [];
         types = [];
+    } else {
+        console.log("resetList != true")
     }
+    console.log("bla.length: ",bla.length)
+    console.log("types.length: ",types.length)
     // check type
     //console.log("element: ",element)
     let e = element.id
@@ -89,7 +94,7 @@ function TableRow(prop)
             </tr>
             <Collapse in={open}>
                     <tr>
-                        <td colSpan={4}>{prop.prop.description}</td>
+                        <td colSpan={5}>{prop.prop.description}</td>
                     </tr>
             </Collapse>
         </>

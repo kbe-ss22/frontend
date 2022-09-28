@@ -72,7 +72,9 @@ class HardwareComponents extends Component {
         }
         this.sendData(nameProd,arrOfNum)
         sessionStorage.setItem("hardwareIDs","[]")
-        sessionStorage.setItem("emptyLists",'true');
+        sessionStorage.setItem("emptyLists","true");
+        let alertString = "new Product with name "+nameProd+" has been sent to Server";
+        alert(alertString)
     }
 
     sendData(productName, harddwareIDs) {
