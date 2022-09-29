@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Keycloak from 'keycloak-js';
-import { ButtonGroup, Container, Table } from 'react-bootstrap';
-import keycloak from "../Keycloak";
-import axiosInstance from '../keycloak/interceptor';
+import keycloak from "../auth/Keycloak";
+import axiosInstance from '../auth/interceptor';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TableTemplateHardware from './TableTemplateHardware';
 import Cookies from 'js-cookie';

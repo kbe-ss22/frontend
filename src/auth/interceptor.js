@@ -1,5 +1,5 @@
 import axios from 'axios';
-import keycloak from "../Keycloak";
+import keycloak from "../auth/Keycloak";
 
 var axiosInstance = axios.create();
 

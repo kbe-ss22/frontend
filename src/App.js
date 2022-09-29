@@ -3,14 +3,9 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import HardwareComponents from './components/HardwareComponents';
 import Products from './components/Products';
-import HelloAnon from './components/HelloAnon';
 import Home from './components/Home';
-import keycloak from "./Keycloak";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import NavComponent from './NavComponent';
+import keycloak from "./auth/Keycloak";
+import NavComponent from './nav/NavComponent';
 
 
 class App extends Component {
@@ -36,7 +31,6 @@ class App extends Component {
           <Route path="/" element={<Home />} />
           <Route path="/HardwareComponents" element={<HardwareComponents />} />
           <Route path="/Products" element={<Products />} />
-          <Route path="/HelloAnon" element={<HelloAnon />} />
         </Routes>
       </BrowserRouter>
     )

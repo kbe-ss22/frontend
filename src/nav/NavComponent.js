@@ -3,11 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import keycloak from "./Keycloak";
-import { NavbarText } from 'reactstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
+import keycloak from "../auth/Keycloak";
 import React, { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 const items = ["EUR", "MXN", "USD", "CAD", "YEN", "PND"];
 
@@ -29,7 +26,6 @@ return (
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/HardwareComponents">Hardware Components</Nav.Link>
           <Nav.Link as={Link} to="/Products">Products</Nav.Link>
-          {/* <Nav.Link as={Link} to="/HelloAnon">Anon</Nav.Link> */}
           
           <Button variant="outline-primary" onClick={ () => logout() }>Logout</Button>{' '}
           
