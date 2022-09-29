@@ -25,22 +25,14 @@ class HardwareComponents extends Component {
 
     fetchData() {
         let cookieCurrency = Cookies.get('currency') ?? 'EUR';
-        //console.log("cookieCurrency = ",cookieCurrency)
 
         var config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+keycloak.token,
-                'Access-Control-Allow-Origin': '*',
-                'withCredentials': true
-            },
             params: {
                 currencyParam: cookieCurrency
             }
           };
         axiosInstance.get('http://localhost:8081/hardwarecomponents', config)
         .then(response => this.setState({message: response.data}))
-        //console.log("fetch of hardwarecomponents returned: ",this.state.message)
     }
 
     updateInputValue(evt) {

@@ -23,12 +23,6 @@ class Products extends Component {
         let cookieCurrency = Cookies.get('currency') ?? 'EUR';
 
         var config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+keycloak.token,
-                'Access-Control-Allow-Origin': '*',
-                'withCredentials': true
-            },
             params: {
                 currencyParam: cookieCurrency
             }
