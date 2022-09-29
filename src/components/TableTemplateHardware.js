@@ -35,55 +35,38 @@ class TableTemplateHardware extends Component {
     }
 }
 
-let bla = []
+let hardwareComponents = []
 let types = []
 
 function addItem(element) {
     let resetLists = sessionStorage.getItem("emptyLists")
 
     if(resetLists == "true") {
-        console.log("resetList == true")
         sessionStorage.setItem("emptyLists","false");
-        bla = [];
+        hardwareComponents = [];
         types = [];
-    } else {
-        console.log("resetList != true")
     }
-    console.log("bla.length: ",bla.length)
-    console.log("types.length: ",types.length)
-    // check type
-    //console.log("element: ",element)
-    let e = element.id
 
     if(types.includes(element.type)) {
-        if(bla.includes(e)) {
-            bla.pop(e)
+        if(hardwareComponents.includes(element.id)) {
+            hardwareComponents.pop(element.id)
             types.pop(element.type)
         } else {
             alert("Type already choosen")
-            document.getElementById(e).checked = false;
+            document.getElementById(element.id).checked = false;
         }
     } else {
         types.push(element.type)
-        bla.push(e)
+        hardwareComponents.push(element.id)
     }
-    console.log("elemente: ",bla.join())
-    console.log("types: ",types)
-    
-    //check if item needs to be removed
-    // if(bla.includes(e)) {
-    //     bla.pop(e)
-    // } else {
-    //     bla.push(e)
-    // }
-    sessionStorage.setItem("hardwareIDs",bla.join())
+
+    sessionStorage.setItem("hardwareIDs",hardwareComponents.join())
 }
 
 function TableRow(prop)
 {
     const [open, setOpen] = useState(false);
-    //console.log("TableRow: ", prop.prop)
-   
+
     return(
         <>
             <tr onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} >
@@ -91,7 +74,12 @@ function TableRow(prop)
                 <td>{prop.prop.name}</td>
                 <td>{prop.prop.type}</td>
                 <td>{(prop.prop.price).toFixed(2)}</td>
-                <td onClick={() => setOpen(open)}><Form.Check id={prop.prop.id} key={prop.prop.id} onChange={e => addItem(prop.prop)} aria-label="option 1" /></td>
+                <td onClick={() => setOpen(open)}><Form.Check 
+                    id={prop.prop.id} 
+                    key={prop.prop.id} 
+                    onChange={e => addItem(prop.prop)} 
+                    aria-label="option 1" />
+                </td>
             </tr>
             <Collapse in={open}>
                     <tr>

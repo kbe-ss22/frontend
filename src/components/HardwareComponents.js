@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 class HardwareComponents extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: [], currency: null, authenticated: false, name: '',inputValue: ''};
+        this.state = {message: [], currency: null, name: '',productName: ''};
         this.items = ['EUR', 'MXN', 'USD', 'CAD', 'YEN', 'PND'];
     }
 
@@ -35,33 +35,32 @@ class HardwareComponents extends Component {
         .then(response => this.setState({message: response.data}))
     }
 
-    updateInputValue(evt) {
+    updateproductName(evt) {
         const val = evt.target.value;
-        // ...       
         this.setState({
-          inputValue: val
+          productName: val
         });
       }
     
-    setSelectedItemWrapper(item) {
+    updateCurrencyAndFetch(item) {
         this.setState({currency: item})
-        // console.log("typeof(item): ",typeof(item))
         Cookies.set('currency', item)
         this.fetchData()
         this.setState({ state: this.state });
     }
 
     submit() {
-        let hardwareidsStrings = sessionStorage.getItem("hardwareIDs")
-        let arrOfStr = hardwareidsStrings.split(",")
-        const arrOfNum = arrOfStr.map(str => Number(str));
+        let hardwareIDsAsString = sessionStorage.getItem("hardwareIDs")
+        let hardwareIDsAsStringArray = hardwareIDsAsString.split(",")
+        const hardwareIDsAsInts = hardwareIDsAsStringArray.map(str => Number(str));
+
         let nameProd
-        if(this.state.inputValue == '') {
+        if(this.state.productName == '') {
             nameProd = "Unnamed"
         } else {
-            nameProd = this.state.inputValue;
+            nameProd = this.state.productName;
         }
-        this.sendData(nameProd,arrOfNum)
+        this.sendData(nameProd,hardwareIDsAsInts)
         sessionStorage.setItem("hardwareIDs","[]")
         sessionStorage.setItem("emptyLists","true");
         let alertString = "new Product with name "+nameProd+" has been sent to Server";
@@ -82,17 +81,9 @@ class HardwareComponents extends Component {
         });
     } 
 
-    handleNameInputChange(e) {
-        console.log(e);
-    }
-
-
     render() {
-        const {clients, isLoading} = this.state;
+        const {isLoading} = this.state;
         const hardware = this.state.message;
-        //const cpus = hardware?.filter(value => value.type === "CPU");
-        //console.log("filter: ",cpus)
-        //console.log(hardware)
         let selectedCurrency = this.state.currency;
         
 
@@ -109,14 +100,14 @@ class HardwareComponents extends Component {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {this.items.map((item) => (
-                                    <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
+                                    <Dropdown.Item onClick={() => this.updateCurrencyAndFetch(item)}>
                                         {item}
                                     </Dropdown.Item>
                                 ))}
                             </Dropdown.Menu>
                         </Dropdown>
                         <pre> Selected Currency: {selectedCurrency}</pre>
-                        <Form.Control type="name" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)} placeholder="set name of product here" />
+                        <Form.Control type="name" value={this.state.productName} onChange={evt => this.updateproductName(evt)} placeholder="set name of product here" />
                         <Button variant="outline-primary" onClick={ () => this.submit() }>Submit</Button>{' '}
                         <TableTemplateHardware props={hardware}/>
                         <Button variant="outline-primary" onClick={ () => this.submit() }>Submit</Button>{' '}

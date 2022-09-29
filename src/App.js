@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HardwareComponents from './components/HardwareComponents';
 import Products from './components/Products';
@@ -18,9 +18,7 @@ class App extends Component {
   componentDidMount() {
     if(!keycloak.authenticated) {
       keycloak.init({onLoad: 'login-required', checkLoginIframe: 'false'})
-    } else {
-      console.log("already authenticated")
-    } 
+    }
   }
 
   render() {

@@ -3,8 +3,6 @@ import keycloak from "../auth/Keycloak";
 
 var axiosInstance = axios.create();
 
-
- 
   axiosInstance.interceptors.request.use(
     req => {
         var headersFix = {
@@ -21,11 +19,10 @@ var axiosInstance = axios.create();
         Promise.reject(error)
     });
 
-
 axiosInstance.interceptors.response.use((response) => {
     return response
 }, function (error) {
     return Promise.reject(error);
-    } 
+    }
 );
 export default axiosInstance;

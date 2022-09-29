@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.state = {clients: [], message: [], currency: null, authenticated: false};
+        this.state = {message: [], currency: null};
         this.items = ['EUR', 'MXN', 'USD', 'CAD', 'YEN', 'PND'];
     }
 
@@ -31,7 +31,7 @@ class Products extends Component {
         .then(response => this.setState({message: response.data}))
     }
 
-    setSelectedItemWrapper(item) {
+    updateCurrencyAndFetch(item) {
         this.setState({currency: item})
         Cookies.set('currency', item)
         this.fetchData()
@@ -39,7 +39,6 @@ class Products extends Component {
     }
 
     render() {
-        const {clients, isLoading} = this.state;
         const product = this.state.message;
         let selectedCurrency = this.state.currency;
         if(keycloak.authenticated) {
@@ -51,7 +50,7 @@ class Products extends Component {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             {this.items.map((item) => (
-                                <Dropdown.Item onClick={() => this.setSelectedItemWrapper(item)}>
+                                <Dropdown.Item onClick={() => this.updateCurrencyAndFetch(item)}>
                                     {item}
                                 </Dropdown.Item>
                             ))}
