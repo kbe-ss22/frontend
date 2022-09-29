@@ -69,20 +69,10 @@ class HardwareComponents extends Component {
     }
 
     sendData(productName, harddwareIDs) {
-        // var config = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'Bearer '+keycloak.token,
-        //         'Access-Control-Allow-Origin': '*',
-        //         'withCredentials': true
-        //     }
-        //   };
-
         var payload = {
             name: productName,
             hardwareIDs: harddwareIDs
         }
-        //axiosInstance.post('http://localhost:8081/products/create', payload, config)
         axiosInstance.post('http://localhost:8081/products/create', payload)
         .then(response => { 
             console.log(response)
