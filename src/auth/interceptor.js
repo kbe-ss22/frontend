@@ -3,15 +3,16 @@ import keycloak from "../auth/Keycloak";
 
 var axiosInstance = axios.create();
 
-var headersFix = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+keycloak.token,
-        'Access-Control-Allow-Origin': '*',
-        'withCredentials': true
-    }
+
  
   axiosInstance.interceptors.request.use(
     req => {
+        var headersFix = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+keycloak.token,
+            'Access-Control-Allow-Origin': '*',
+            'withCredentials': true
+        }
         req.headers = headersFix
         return req
     },
